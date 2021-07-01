@@ -5,9 +5,9 @@ import Input from '../Shared/Input'
 import styles from './ReviewModal.module.scss'
 
 interface ModalProps {
-  isOpen: boolean,
+  isOpen: boolean
   handleClose: () => void
-  handleSubmit: (data: { rating: number, text: string }) => void
+  handleSubmit: (data: { rating: number; text: string }) => void
 }
 
 const ModalBox: React.FC<ModalProps> = ({ isOpen, handleClose, handleSubmit }) => {
@@ -32,10 +32,15 @@ const ModalBox: React.FC<ModalProps> = ({ isOpen, handleClose, handleSubmit }) =
 
   return (
     <div className={isOpen ? styles['modal-open'] : styles['modal-close']} onClick={handleClose}>
-      <div className={styles.container} onClick={event => event.stopPropagation()}>
+      <div className={styles.container} onClick={(event) => event.stopPropagation()}>
         <h3>Submit a new Review for this product</h3>
         <label>Rating</label>
-        <Input value={reviewData.rating} handleChange={(value) => handleChange('rating', value)} type="number" placeholder="Rating" />
+        <Input
+          value={reviewData.rating}
+          handleChange={(value) => handleChange('rating', value)}
+          type="number"
+          placeholder="Rating"
+        />
         <label>Review</label>
         <Input value={reviewData.text} handleChange={(value) => handleChange('text', value)} placeholder="Text" />
         <Button onClick={handleButtonClick}>
@@ -58,7 +63,7 @@ const ReviewModal: React.FC<ModalProps> = ({ isOpen, handleClose, handleSubmit }
     } else {
       if (ref.current) {
         if (ref.current.parentNode) {
-          (ref.current.parentNode as HTMLElement).setAttribute('style', 'overflow-y:visible; position: static;')
+          ;(ref.current.parentNode as HTMLElement).setAttribute('style', 'overflow-y:visible; position: static;')
           ref.current.parentNode.removeChild(ref.current)
         }
         ReactDOM.unmountComponentAtNode(ref.current)

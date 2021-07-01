@@ -9,7 +9,6 @@ import styles from './ProductDetail.module.scss'
 
 const PRODUCT_URL = 'http://localhost:5000/api/product'
 
-
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const { data, hasData, error, isLoading } = useFetch(`${PRODUCT_URL}/${id}`)

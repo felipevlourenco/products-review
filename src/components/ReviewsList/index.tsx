@@ -42,19 +42,22 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ productId = '' }) => {
     setIsOpen(true)
   }
 
-  const handleModalSubmit = (reviewData: { rating: number, text: string }) => {
+  const handleModalSubmit = (reviewData: { rating: number; text: string }) => {
     fetch(`${REVIEW_URL}/${productId}`, {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({ ...reviewData, productId, locale: 'en-Us' })
-    }).then(response => response.json()).then(() => {
-      loadReviews.current()
-    }).catch(error => {
-      setError(error.message ? error.message : JSON.stringify(error))
-      setIsLoading(false)
     })
+      .then((response) => response.json())
+      .then(() => {
+        loadReviews.current()
+      })
+      .catch((error) => {
+        setError(error.message ? error.message : JSON.stringify(error))
+        setIsLoading(false)
+      })
 
     setIsOpen(false)
   }
