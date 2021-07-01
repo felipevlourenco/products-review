@@ -15,7 +15,7 @@ const URL = 'http://localhost:5000/api/product'
 
 const Products: React.FC = () => {
   const history = useHistory()
-  const { data, hasData, error, isLoading } = useFetch(URL, { method: 'GET' })
+  const { data, hasData, error, isLoading } = useFetch(URL)
 
   const handleClick = (product: ProductModel) => {
     history.push(product.id)

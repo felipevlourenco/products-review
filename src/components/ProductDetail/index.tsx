@@ -4,16 +4,20 @@ import { Product } from '../../models/product.model'
 import useFetch from '../../utils/useFetch'
 import ErrorMessage from '../ErrorMessage'
 import Loading from '../Loading'
+import ReviewsList from '../ReviewsList'
+import styles from './ProductDetail.module.scss'
 
-const URL = 'http://localhost:5000/api/product'
+const PRODUCT_URL = 'http://localhost:5000/api/product'
 
-// export interface ProductDetailProps {
-// }
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
-  const { data, error, isLoading } = useFetch(`${URL}/${id}`, { method: 'GET' })
+  const { data, hasData, error, isLoading } = useFetch(`${PRODUCT_URL}/${id}`)
   const product = data as Product
+
+  const getPriceFormated = (product: Product): string => {
+    return `${product.currency} ${product.price?.toFixed(2)}`
+  }
 
   if (error) {
     return <ErrorMessage message={error} />
@@ -25,12 +29,17 @@ const ProductDetail: React.FC = () => {
 
   return (
     <div>
-      <div>
-        <img src={product.imgUrl} alt={`${product.name} image`} />
-        <span>{product.name}</span>
-        <span>{product.description}</span>
-        <span>{product.price}</span>
-      </div>
+      {hasData && (
+        <div className={styles['product-detail']}>
+          <img className={styles.img} src={product.imgUrl} alt={`${product.name} image`} />
+          <div>
+            <span className={styles.name}>{product.name}</span>
+            <span className={styles.description}>{product.description}</span>
+            <span className={styles.price}>{getPriceFormated(product)}</span>
+          </div>
+        </div>
+      )}
+      <ReviewsList productId={id} />
     </div>
   )
 }
