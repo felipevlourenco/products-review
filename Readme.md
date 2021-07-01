@@ -22,19 +22,19 @@ yarn format
 yarn test
 ```
 
-###### Serve Client app and hot-reloads for development
+### Serve Client app and hot-reloads for development
 
 ```
 yarn start:client
 ```
 
-###### Serve Server and hot-reloads for development
+### Serve Server and hot-reloads for development
 
 ```
 yarn start:server
 ```
 
-###### Run Server and client at the same time
+### Run Server and client at the same time
 
 ```
 yarn start
