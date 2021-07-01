@@ -25,7 +25,7 @@ const Header: React.FC = () => {
       {isHome() ? (
         <Input value={searchInput} handleChange={(value) => setSearchInput(value)} placeholder="Search..." />
       ) : (
-        <Button onClick={goBack}>
+        <Button onClick={goBack} isSharp>
           <span>Back</span>
         </Button>
       )}

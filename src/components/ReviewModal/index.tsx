@@ -1,25 +1,52 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
+import Button from '../Shared/Button'
+import Input from '../Shared/Input'
 import styles from './ReviewModal.module.scss'
 
 interface ModalProps {
   isOpen: boolean,
   handleClose: () => void
-  text: string
+  handleSubmit: (data: { rating: number, text: string }) => void
 }
 
-const ModalBox: React.FC<ModalProps> = ({ isOpen, handleClose, text }) => {
+const ModalBox: React.FC<ModalProps> = ({ isOpen, handleClose, handleSubmit }) => {
+  const [reviewData, setReviewData] = useState({
+    rating: 0,
+    text: ''
+  })
+
+  const handleChange = (prop: string, value: string) => {
+    setReviewData({
+      ...reviewData,
+      [prop]: value
+    })
+  }
+
+  const handleButtonClick = () => {
+    handleSubmit({
+      rating: +reviewData.rating,
+      text: reviewData.text
+    })
+  }
+
   return (
     <div className={isOpen ? styles['modal-open'] : styles['modal-close']} onClick={handleClose}>
       <div className={styles.container} onClick={event => event.stopPropagation()}>
-        <span>{text}</span>
-        <button onClick={handleClose}>Close</button>
+        <h3>Submit a new Review for this product</h3>
+        <label>Rating</label>
+        <Input value={reviewData.rating} handleChange={(value) => handleChange('rating', value)} type="number" placeholder="Rating" />
+        <label>Review</label>
+        <Input value={reviewData.text} handleChange={(value) => handleChange('text', value)} placeholder="Text" />
+        <Button onClick={handleButtonClick}>
+          <span>Submit Review</span>
+        </Button>
       </div>
     </div>
   )
 }
 
-const ReviewModal: React.FC<ModalProps> = ({ isOpen, handleClose, text }) => {
+const ReviewModal: React.FC<ModalProps> = ({ isOpen, handleClose, handleSubmit }) => {
   const ref = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
@@ -27,7 +54,7 @@ const ReviewModal: React.FC<ModalProps> = ({ isOpen, handleClose, text }) => {
       ref.current = document.createElement('div')
       document.body.appendChild(ref.current)
       document.body.setAttribute('style', 'overflow-y:hidden; position: relative;')
-      ReactDOM.render(<ModalBox isOpen={isOpen} handleClose={handleClose} text={text} />, ref.current)
+      ReactDOM.render(<ModalBox isOpen={isOpen} handleClose={handleClose} handleSubmit={handleSubmit} />, ref.current)
     } else {
       if (ref.current) {
         if (ref.current.parentNode) {
@@ -37,7 +64,7 @@ const ReviewModal: React.FC<ModalProps> = ({ isOpen, handleClose, text }) => {
         ReactDOM.unmountComponentAtNode(ref.current)
       }
     }
-  }, [isOpen, handleClose, text])
+  }, [isOpen, handleClose, handleSubmit])
 
   return null
 }
