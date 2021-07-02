@@ -9,10 +9,6 @@ import Loading from '../Loading'
 
 const URL = 'http://localhost:5000/api/product'
 
-// export interface ProductsProps {
-//   selectProduct: (p: ProductModel) => void
-// }
-
 const Products: React.FC = () => {
   const history = useHistory()
   const { data, hasData, error, isLoading } = useFetch(URL)

@@ -20,6 +20,4 @@ describe('Product component', () => {
     const foundText = component.getByText('new product')
     expect(foundText.textContent).toContain('new product')
   })
-
-  // test()
 })

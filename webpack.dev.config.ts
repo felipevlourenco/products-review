@@ -5,7 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import ESLintPlugin from 'eslint-webpack-plugin'
 
-// Hack to extend configuration to show devServer prop
+// Workaround to extend configuration to show devServer prop
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration
 }
